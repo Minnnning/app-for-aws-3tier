@@ -1,4 +1,5 @@
 import os
+import socket
 from typing import List
 from datetime import datetime
 import sqlalchemy
@@ -105,7 +106,23 @@ def read_data_entries(skip: int = 0, limit: int = 100, db: sqlalchemy.orm.Sessio
     entries = db.query(SimpleData).order_by(SimpleData.created_at.desc()).offset(skip).limit(limit).all()
     return entries
 
-# --- 2. 새로 추가된 데이터 삭제 기능 ---
+@app.get("/api/health")
+def read_health_check():
+    """
+    로드 밸런서 헬스 체크 및
+    프론트엔드에 서버 정보(private IP)를 반환합니다.
+    """
+    try:
+        # 1. 'ip-10-x-x-x.ap-northeast-2.compute.internal' 같은 호스트 이름을 가져옵니다.
+        hostname = socket.gethostname()
+        # 2. 호스트 이름을 프라이빗 IP 주소(예: '10.x.x.x')로 변환합니다.
+        private_ip = socket.gethostbyname(hostname)
+    except socket.error:
+        # 조회가 실패할 경우의 예외 처리
+        private_ip = "IP 조회 실패"
+        
+    return {"message": f"Server is running on {private_ip}"}
+
 @app.delete("/api/data/{item_id}", response_model=dict)
 def delete_data_entry(item_id: int, db: sqlalchemy.orm.Session = Depends(get_db)):
     """
