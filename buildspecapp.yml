@@ -4,7 +4,7 @@ phases:
   post_build:
     commands:
       # 현재 작업 디렉터리('.')의 내용물을 S3 버킷의 'latest/' 경로로 동기화합니다.
-      - aws s3 sync . s3://source-for-imagebuilder-app/latest/ --delete
+      - aws s3 sync . s3://kmj-source-for-imagebuilder-app/latest/ --delete
       
       - echo "Starting EC2 Image Builder pipeline execution..."
       # Image Builder 파이프라인을 실행합니다.
