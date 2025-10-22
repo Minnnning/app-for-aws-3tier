@@ -9,7 +9,3 @@ phases:
       - echo "Starting EC2 Image Builder pipeline execution..."
       # Image Builder 파이프라인을 실행합니다.
       #- aws imagebuilder start-image-pipeline-execution --image-pipeline-arn "arn:aws:imagebuilder:ap-northeast-2:131571435824:image-pipeline/react-app-pipeline"
-
-artifacts:
-  files:
-    - '**/*'
