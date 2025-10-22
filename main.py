@@ -121,7 +121,7 @@ def read_health_check():
         # 조회가 실패할 경우의 예외 처리
         private_ip = "IP 조회 실패"
         
-    return {"message": f"Server is running on {private_ip}"}
+    return {"message": f"{private_ip}"}
 
 @app.delete("/api/data/{item_id}", response_model=dict)
 def delete_data_entry(item_id: int, db: sqlalchemy.orm.Session = Depends(get_db)):
