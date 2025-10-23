@@ -113,9 +113,9 @@ def read_health_check():
     프론트엔드에 서버 정보(private IP)를 반환합니다.
     """
     try:
-        # 1. 'ip-10-x-x-x.ap-northeast-2.compute.internal' 같은 호스트 이름을 가져옵니다.
+        # ip-10-x-x-x.ap-northeast-2.compute.internal
         hostname = socket.gethostname()
-        # 2. 호스트 이름을 프라이빗 IP 주소(예: '10.x.x.x')로 변환합니다.
+        # 10.x.x.x로 변환
         private_ip = socket.gethostbyname(hostname)
     except socket.error:
         # 조회가 실패할 경우의 예외 처리
